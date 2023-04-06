@@ -12,6 +12,8 @@ ws.on('open', function open() {
 });
 ws.on('message', function message(data) {
 	console.log('received: %s', data);
+	mouse.pressButton(Button.LEFT)
+	mouse.releaseButton(Button.LEFT)
 });
 
 // mouse click simulator
@@ -34,5 +36,5 @@ ws.on('message', function message(data) {
 const eventEmitter = mainFunc();
 eventEmitter.on('left-down', function (x, y) {
 	console.log(x, y)
-	ws.send('mouse was clicked');
+	// ws.send('mouse was clicked');
 });
