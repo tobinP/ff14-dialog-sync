@@ -1,11 +1,11 @@
 import { mouse, Button } from '@nut-tree/nut-js';
 import WinMouse from 'win-mouse';
 import WebSocket from 'ws';
-import * as readline from 'node:readline';
+import readline from 'readline';
 import keypress from 'keypress';
 
-console.log('ip:', process.env.IP)
-let serverIP = process.env.IP
+console.log('ip:', process.env.IP);
+let serverIP = process.env.IP;
 // socket client
 const ws = new WebSocket(`ws://${serverIP}:8080`);
 ws.on('error', console.error);
