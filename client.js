@@ -1,5 +1,5 @@
 // const { keyboard, Key, mouse, Button } = require("@nut-tree/nut-js");
-import { keyboard, Key, mouse, Button } from '@nut-tree/nut-js';
+import { mouse, Button } from '@nut-tree/nut-js';
 import { mainFunc } from './node_modules/win-mouse/index.js';
 import WebSocket from 'ws';
 import * as readline from 'node:readline';
@@ -19,22 +19,6 @@ ws.on('message', function message(data) {
 	mouse.pressButton(Button.LEFT);
 	mouse.releaseButton(Button.LEFT);
 });
-
-// mouse click simulator
-// var delayInMilliseconds = 1000;
-// let isDown = false
-// setInterval(function () {
-// 	if (isDown) {
-// 		console.log("mouse is down")
-// 		mouse.pressButton(Button.LEFT)
-// 	} else {
-// 		console.log("mouse is up")
-// 		mouse.releaseButton(Button.LEFT)
-// 	}
-
-// 	isDown = !isDown
-
-// }, delayInMilliseconds);
 
 // keyboard event listener
 let paused = true;
