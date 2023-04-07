@@ -58,6 +58,6 @@ eventEmitter.on('left-down', function (x, y) {
 	if (!paused && ws.readyState === WebSocket.OPEN) {
 		ws.send('mouse was clicked');
 	} else {
-		ws.send('event not sent');
+		console.log('event not sent');
 	}
 });
