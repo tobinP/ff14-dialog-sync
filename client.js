@@ -6,7 +6,7 @@ import * as readline from 'node:readline';
 import keypress from 'keypress';
 
 // socket client
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket('ws://131.191.117.9:8080');
 ws.on('error', console.error);
 ws.on('open', function open() {
 	console.log('client: connected!');
