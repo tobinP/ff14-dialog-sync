@@ -1,19 +1,21 @@
 // const { keyboard, Key, mouse, Button } = require("@nut-tree/nut-js");
-import { keyboard, Key, mouse, Button } from "@nut-tree/nut-js"
+import { keyboard, Key, mouse, Button } from '@nut-tree/nut-js';
 import { mainFunc } from './node_modules/win-mouse/index.js';
 import WebSocket from 'ws';
+import * as readline from 'node:readline';
+import keypress from 'keypress';
 
 // socket client
 const ws = new WebSocket('ws://localhost:8080');
 ws.on('error', console.error);
 ws.on('open', function open() {
-	console.log("client: connected!")
+	console.log('client: connected!');
 	ws.send('something');
 });
 ws.on('message', function message(data) {
 	console.log('received: %s', data);
-	mouse.pressButton(Button.LEFT)
-	mouse.releaseButton(Button.LEFT)
+	mouse.pressButton(Button.LEFT);
+	mouse.releaseButton(Button.LEFT);
 });
 
 // mouse click simulator
@@ -32,9 +34,32 @@ ws.on('message', function message(data) {
 
 // }, delayInMilliseconds);
 
+// keyboard event listener
+let paused = true;
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
+rl.prompt();
+
+// listen to keypress
+keypress(process.stdin);
+process.stdin.on('keypress', (ch, key) => {
+	console.log(key.name);
+	if (key && key.name == 'f12') {
+		paused = !paused;
+		console.log(paused);
+	}
+});
+
 // mouse click listener
 const eventEmitter = mainFunc();
 eventEmitter.on('left-down', function (x, y) {
-	console.log(x, y)
-	// ws.send('mouse was clicked');
+	if (!paused) {
+		console.log(x, y);
+		ws.send('mouse was clicked');
+	} else {
+		return;
+	}
 });
