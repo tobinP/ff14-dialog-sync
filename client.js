@@ -1,6 +1,5 @@
-// const { keyboard, Key, mouse, Button } = require("@nut-tree/nut-js");
 import { mouse, Button } from '@nut-tree/nut-js';
-import { mainFunc } from './node_modules/win-mouse/index.js';
+import WinMouse from 'win-mouse';
 import WebSocket from 'ws';
 import * as readline from 'node:readline';
 import keypress from 'keypress';
@@ -38,8 +37,8 @@ process.stdin.on('keypress', (ch, key) => {
 });
 
 // mouse click listener
-const eventEmitter = mainFunc();
-eventEmitter.on('left-down', function (x, y) {
+const winMouse = WinMouse();
+winMouse.on('left-down', function (x, y) {
 	console.log(paused);
 	if (!paused && ws.readyState === WebSocket.OPEN) {
 		ws.send('mouse was clicked');
