@@ -14,8 +14,6 @@ wss.on('connection', function connection(ws) {
         client.send("mouse clicked");
       }
     });
-    // ws.send('mouse button clicked');
   });
 
-  // ws.send('something');
 });
