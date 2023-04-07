@@ -41,8 +41,6 @@ const rl = readline.createInterface({
 	output: process.stdout,
 });
 
-rl.prompt();
-
 // listen to keypress
 keypress(process.stdin);
 process.stdin.on('keypress', (ch, key) => {
@@ -56,10 +54,10 @@ process.stdin.on('keypress', (ch, key) => {
 // mouse click listener
 const eventEmitter = mainFunc();
 eventEmitter.on('left-down', function (x, y) {
-	if (!paused) {
-		console.log(x, y);
+	console.log(paused);
+	if (!paused && ws.readyState === WebSocket.OPEN) {
 		ws.send('mouse was clicked');
 	} else {
-		return;
+		ws.send('event not sent');
 	}
 });
