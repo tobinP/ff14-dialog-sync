@@ -1,8 +1,7 @@
 import { mouse, Button } from '@nut-tree/nut-js';
 import WinMouse from 'win-mouse';
 import WebSocket from 'ws';
-import readline from 'readline';
-import keypress from 'keypress';
+import { GlobalKeyboardListener } from 'node-global-key-listener';
 
 console.log('ip:', process.env.IP);
 let serverIP = process.env.IP;
@@ -21,16 +20,10 @@ ws.on('message', function message(data) {
 
 // keyboard event listener
 let paused = true;
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+const keyListener = new GlobalKeyboardListener();
 
-// listen to keypress
-keypress(process.stdin);
-process.stdin.on('keypress', (ch, key) => {
-	console.log(key.name);
-	if (key && key.name == 'f12') {
+keyListener.addListener(function (e) {
+	if (e.name == 'F12' && e.state == 'UP') {
 		paused = !paused;
 		console.log(paused);
 	}
